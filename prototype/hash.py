@@ -9,7 +9,6 @@ import numpy as np
 from tabulate import tabulate
 from typing import Callable, Dict, List, Tuple
 
-
 class HashBenchmark:
     """
     A comprehensive framework for benchmarking and analyzing cryptographic hash functions
