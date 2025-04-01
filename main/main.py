@@ -7,11 +7,10 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from tabulate import tabulate
-from typing import Callable, Dict, List, Tuple, Any, Optional
+from typing import Callable, Dict, List
 import multiprocessing
 import gc
 import psutil
-import itertools
 import json
 from datetime import datetime
 

@@ -1,0 +1,10 @@
+hashlib
+blake3
+matplotlib
+numpy
+tabulate
+psutil
+qiskit
+qiskit-aer
+qiskit-ibm-provider
+qiskit-machine-learning

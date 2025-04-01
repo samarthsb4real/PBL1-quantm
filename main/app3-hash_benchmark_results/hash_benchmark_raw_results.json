@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "timestamp": "2025-03-24T15:43:39.120944",
+    "timestamp": "2025-03-28T13:35:23.000061",
     "platform": "linux",
     "python_version": "3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0]",
     "cpu_count": 12
@@ -9,45 +9,45 @@
     "performance": {
       "SHA-512": {
         "64": {
-          "avg_time": 6.33971700000302e-07,
-          "throughput": 96.27425995509094,
+          "avg_time": 1.1949878000450554e-06,
+          "throughput": 51.0759660037523,
           "iterations": 10000
         },
         "1024": {
-          "avg_time": 1.6576708000002327e-06,
-          "throughput": 589.1172722592827,
+          "avg_time": 1.7180991999339312e-06,
+          "throughput": 568.3970401927626,
           "iterations": 2500
         },
         "16384": {
-          "avg_time": 1.742979999999079e-05,
-          "throughput": 896.4532008404144,
+          "avg_time": 1.7535950399178547e-05,
+          "throughput": 891.026699113607,
           "iterations": 625
         },
         "1048576": {
-          "avg_time": 0.0010827121599999146,
-          "throughput": 923.6065105245322,
+          "avg_time": 0.001061075620000338,
+          "throughput": 942.4398988638354,
           "iterations": 100
         }
       },
       "Quantum-Safe": {
         "64": {
-          "avg_time": 1.5100079000006872e-06,
-          "throughput": 40.420421807046324,
+          "avg_time": 1.4917450000211828e-06,
+          "throughput": 40.91527456041971,
           "iterations": 10000
         },
         "1024": {
-          "avg_time": 3.592985199998111e-06,
-          "throughput": 271.79697261222043,
+          "avg_time": 3.4992935998161555e-06,
+          "throughput": 279.0741823010525,
           "iterations": 2500
         },
         "16384": {
-          "avg_time": 2.233235680000689e-05,
-          "throughput": 699.6574584548631,
+          "avg_time": 2.1787048000260257e-05,
+          "throughput": 717.1692098816394,
           "iterations": 625
         },
         "1048576": {
-          "avg_time": 0.0018694638799999553,
-          "throughput": 534.9127151897816,
+          "avg_time": 0.0015082155099935335,
+          "throughput": 663.0352183583416,
           "iterations": 100
         }
       }
@@ -55,20 +55,20 @@
     "entropy": {
       "SHA-512": {
         "entropy_score": 1.0,
-        "chi_squared": 4.694390869141092e-05,
+        "chi_squared": 3.656469726563153e-05,
         "bit_distribution": {
-          "zeros_percent": 50.0342578125,
-          "ones_percent": 49.9657421875,
+          "zeros_percent": 50.030234375000006,
+          "ones_percent": 49.969765625,
           "ideal_percent": 50.0
         },
         "optimal_distribution": "OPTIMAL (p > 0.05)"
       },
       "Quantum-Safe": {
         "entropy_score": 1.0,
-        "chi_squared": 6.450097656250822e-05,
+        "chi_squared": 7.05337524413943e-05,
         "bit_distribution": {
-          "zeros_percent": 49.95984375,
-          "ones_percent": 50.04015625,
+          "zeros_percent": 50.04199218749999,
+          "ones_percent": 49.9580078125,
           "ideal_percent": 50.0
         },
         "optimal_distribution": "OPTIMAL (p > 0.05)"
@@ -127,38 +127,38 @@
     "avalanche": {
       "SHA-512": {
         "64": {
-          "average_bit_change_percentage": 50.132421875,
-          "standard_deviation": 2.2165199441561083,
-          "min_change": 42.578125,
-          "max_change": 56.4453125,
-          "ideal_score": 0.13242187499999858,
-          "consistency": 97.7834800558439
+          "average_bit_change_percentage": 50.0375,
+          "standard_deviation": 2.1287730749630174,
+          "min_change": 43.359375,
+          "max_change": 57.6171875,
+          "ideal_score": 0.03750000000000142,
+          "consistency": 97.87122692503698
         },
         "1024": {
-          "average_bit_change_percentage": 50.0689453125,
-          "standard_deviation": 2.128318358836398,
-          "min_change": 43.359375,
-          "max_change": 56.640625,
-          "ideal_score": 0.06894531249999858,
-          "consistency": 97.8716816411636
+          "average_bit_change_percentage": 49.9978515625,
+          "standard_deviation": 2.1665683733823236,
+          "min_change": 43.1640625,
+          "max_change": 59.375,
+          "ideal_score": 0.002148437499997158,
+          "consistency": 97.83343162661768
         }
       },
       "Quantum-Safe": {
         "64": {
-          "average_bit_change_percentage": 50.028125,
-          "standard_deviation": 3.1574201110736753,
-          "min_change": 39.0625,
+          "average_bit_change_percentage": 49.9546875,
+          "standard_deviation": 3.0223003352423876,
+          "min_change": 41.796875,
           "max_change": 59.765625,
-          "ideal_score": 0.028125000000002842,
-          "consistency": 96.84257988892632
+          "ideal_score": 0.04531250000000142,
+          "consistency": 96.97769966475761
         },
         "1024": {
-          "average_bit_change_percentage": 49.873828125,
-          "standard_deviation": 3.198850782982399,
-          "min_change": 39.84375,
-          "max_change": 58.984375,
-          "ideal_score": 0.12617187499999716,
-          "consistency": 96.8011492170176
+          "average_bit_change_percentage": 50.017578125,
+          "standard_deviation": 3.087642305005894,
+          "min_change": 41.015625,
+          "max_change": 59.765625,
+          "ideal_score": 0.017578125,
+          "consistency": 96.9123576949941
         }
       }
     },
@@ -166,7 +166,7 @@
       "SHA-512": {
         "empty": {
           "status": "SUCCESS",
-          "time_taken": 2.805000008265779e-06,
+          "time_taken": 1.1591999282245524e-05,
           "hash_output": "cf83e1357eefb8bd...a538327af927da3e",
           "output_zeros_percent": 49.0234375,
           "output_ones_percent": 50.9765625,
@@ -174,7 +174,7 @@
         },
         "large": {
           "status": "SUCCESS",
-          "time_taken": 0.0010649580000006154,
+          "time_taken": 0.0010479889997441205,
           "hash_output": "990fed5cd10a5499...dc387c2e9fa3a4b8",
           "output_zeros_percent": 46.2890625,
           "output_ones_percent": 53.7109375,
@@ -182,7 +182,7 @@
         },
         "repeated_pattern": {
           "status": "SUCCESS",
-          "time_taken": 7.754000023396657e-06,
+          "time_taken": 7.5750003816210665e-06,
           "hash_output": "46ba5d5fd981d70d...b540e0e94edfe132",
           "output_zeros_percent": 48.828125,
           "output_ones_percent": 51.171875,
@@ -190,7 +190,7 @@
         },
         "all_zeros": {
           "status": "SUCCESS",
-          "time_taken": 2.504000008229923e-06,
+          "time_taken": 2.3749998945277184e-06,
           "hash_output": "8efb4f73c5655351...70617b73eb0b6461",
           "output_zeros_percent": 51.953125,
           "output_ones_percent": 48.046875,
@@ -198,7 +198,7 @@
         },
         "all_ones": {
           "status": "SUCCESS",
-          "time_taken": 2.2039999976186664e-06,
+          "time_taken": 2.113999471475836e-06,
           "hash_output": "b8dfad1a78fd5786...136ffe3e658ca641",
           "output_zeros_percent": 50.390625,
           "output_ones_percent": 49.609375,
@@ -206,7 +206,7 @@
         },
         "alternating": {
           "status": "SUCCESS",
-          "time_taken": 1.984000022048349e-06,
+          "time_taken": 1.9529998098732904e-06,
           "hash_output": "9b47be1a8b8de589...9b017a01b605cf01",
           "output_zeros_percent": 51.7578125,
           "output_ones_percent": 48.2421875,
@@ -214,7 +214,7 @@
         },
         "increasing": {
           "status": "SUCCESS",
-          "time_taken": 1.9329999929595942e-06,
+          "time_taken": 2.0139996195212007e-06,
           "hash_output": "37f652be867f28ed...e231620a130b566c",
           "output_zeros_percent": 50.5859375,
           "output_ones_percent": 49.4140625,
@@ -222,7 +222,7 @@
         },
         "sparse": {
           "status": "SUCCESS",
-          "time_taken": 3.1350000142538192e-06,
+          "time_taken": 3.006000042660162e-06,
           "hash_output": "14084e1308a3467e...b9f80f1e5dd9bfca",
           "output_zeros_percent": 48.828125,
           "output_ones_percent": 51.171875,
@@ -230,7 +230,7 @@
         },
         "unicode_heavy": {
           "status": "SUCCESS",
-          "time_taken": 3.466000009666459e-06,
+          "time_taken": 3.406999894650653e-06,
           "hash_output": "a3a560b3d36904fe...ca1e41f0a91c66b9",
           "output_zeros_percent": 50.78125,
           "output_ones_percent": 49.21875,
@@ -240,7 +240,7 @@
       "Quantum-Safe": {
         "empty": {
           "status": "SUCCESS",
-          "time_taken": 4.107000023623186e-06,
+          "time_taken": 3.98800057155313e-06,
           "hash_output": "2773f2605f027cae...748c54b62b8816a0",
           "output_zeros_percent": 52.34375,
           "output_ones_percent": 47.65625,
@@ -248,7 +248,7 @@
         },
         "large": {
           "status": "SUCCESS",
-          "time_taken": 0.0013899050000247826,
+          "time_taken": 0.0013418130001809914,
           "hash_output": "3ab6217e3018b68f...c31711e5ad2d12ac",
           "output_zeros_percent": 53.515625,
           "output_ones_percent": 46.484375,
@@ -256,7 +256,7 @@
         },
         "repeated_pattern": {
           "status": "SUCCESS",
-          "time_taken": 1.1981000000105269e-05,
+          "time_taken": 1.2053000318701379e-05,
           "hash_output": "672accb63a5d562c...bed51f0f52467b3a",
           "output_zeros_percent": 47.265625,
           "output_ones_percent": 52.734375,
@@ -264,7 +264,7 @@
         },
         "all_zeros": {
           "status": "SUCCESS",
-          "time_taken": 3.996999993205463e-06,
+          "time_taken": 4.1980001697083935e-06,
           "hash_output": "42b86edb1d4def17...fb36c763c8101afe",
           "output_zeros_percent": 48.828125,
           "output_ones_percent": 51.171875,
@@ -272,7 +272,7 @@
         },
         "all_ones": {
           "status": "SUCCESS",
-          "time_taken": 3.826000011031283e-06,
+          "time_taken": 3.977000233135186e-06,
           "hash_output": "24a1a77ede7f4ae8...1f4af282ba334e73",
           "output_zeros_percent": 48.4375,
           "output_ones_percent": 51.5625,
@@ -280,7 +280,7 @@
         },
         "alternating": {
           "status": "SUCCESS",
-          "time_taken": 3.8070000130119297e-06,
+          "time_taken": 3.7770005292259157e-06,
           "hash_output": "57fdcc4d51b002cc...6bdaa592fb0ea54f",
           "output_zeros_percent": 48.046875,
           "output_ones_percent": 51.953125,
@@ -288,7 +288,7 @@
         },
         "increasing": {
           "status": "SUCCESS",
-          "time_taken": 3.7660000202777155e-06,
+          "time_taken": 3.8070002119638957e-06,
           "hash_output": "59e0409c38a77689...28b3160fa3b53267",
           "output_zeros_percent": 50.78125,
           "output_ones_percent": 49.21875,
@@ -296,7 +296,7 @@
         },
         "sparse": {
           "status": "SUCCESS",
-          "time_taken": 5.009000005884445e-06,
+          "time_taken": 5.089999831398018e-06,
           "hash_output": "f9fcaf8451aeafc9...4f62a638c1286226",
           "output_zeros_percent": 51.5625,
           "output_ones_percent": 48.4375,
@@ -304,7 +304,7 @@
         },
         "unicode_heavy": {
           "status": "SUCCESS",
-          "time_taken": 5.689999994729078e-06,
+          "time_taken": 5.580999641097151e-06,
           "hash_output": "a0f19254f0785555...d5b6e5a99d4fb0e7",
           "output_zeros_percent": 46.484375,
           "output_ones_percent": 53.515625,
@@ -315,46 +315,46 @@
     "differential": {
       "SHA-512": {
         "1_bytes": {
-          "average_bit_change": 49.90078125,
-          "standard_deviation": 2.161289118627324,
-          "differential_score": 0.09921874999999858
+          "average_bit_change": 49.940625,
+          "standard_deviation": 2.1850186819853508,
+          "differential_score": 0.05937500000000284
         },
         "2_bytes": {
-          "average_bit_change": 50.0244140625,
-          "standard_deviation": 2.2231965975295775,
-          "differential_score": 0.0244140625
+          "average_bit_change": 49.8833984375,
+          "standard_deviation": 2.2615179554515126,
+          "differential_score": 0.11660156250000142
         },
         "4_bytes": {
-          "average_bit_change": 49.976171875,
-          "standard_deviation": 2.220636267683118,
-          "differential_score": 0.02382812500000142
+          "average_bit_change": 50.0806640625,
+          "standard_deviation": 2.2200806058391978,
+          "differential_score": 0.08066406249999858
         },
         "8_bytes": {
-          "average_bit_change": 49.9861328125,
-          "standard_deviation": 2.2782678546254025,
-          "differential_score": 0.013867187499997158
+          "average_bit_change": 49.947265625,
+          "standard_deviation": 2.200532293948213,
+          "differential_score": 0.052734375
         }
       },
       "Quantum-Safe": {
         "1_bytes": {
-          "average_bit_change": 49.973046875,
-          "standard_deviation": 3.0927101067580454,
-          "differential_score": 0.02695312499999858
+          "average_bit_change": 50.043359375,
+          "standard_deviation": 3.0576402119561883,
+          "differential_score": 0.04335937500000142
         },
         "2_bytes": {
-          "average_bit_change": 49.788671875,
-          "standard_deviation": 3.2904057298368783,
-          "differential_score": 0.21132812500000142
+          "average_bit_change": 49.971875,
+          "standard_deviation": 3.0621316742793736,
+          "differential_score": 0.028125000000002842
         },
         "4_bytes": {
-          "average_bit_change": 50.1140625,
-          "standard_deviation": 3.1377847853820375,
-          "differential_score": 0.11406250000000284
+          "average_bit_change": 49.85859375,
+          "standard_deviation": 3.162976183116297,
+          "differential_score": 0.14140625000000284
         },
         "8_bytes": {
-          "average_bit_change": 49.915234375,
-          "standard_deviation": 3.088999445131301,
-          "differential_score": 0.08476562500000284
+          "average_bit_change": 50.001953125,
+          "standard_deviation": 3.1958992193228433,
+          "differential_score": 0.001953125
         }
       }
     },
@@ -378,8 +378,8 @@
         "pattern_bits": 16,
         "found_match": false,
         "attempts": 100,
-        "time_taken": 0.00018030999999041342,
-        "attempts_per_second": 554600.4104337903,
+        "time_taken": 0.00018050099970423616,
+        "attempts_per_second": 554013.5520792525,
         "status": "STRONG"
       },
       "Quantum-Safe": {
@@ -387,8 +387,8 @@
         "pattern_bits": 16,
         "found_match": false,
         "attempts": 100,
-        "time_taken": 0.00028322599999341946,
-        "attempts_per_second": 353074.929569755,
+        "time_taken": 0.0002821019998009433,
+        "attempts_per_second": 354481.7125385923,
         "status": "STRONG"
       }
     },

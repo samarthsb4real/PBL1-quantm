@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
-# filepath: /home/samarth/projects/quantm/prototype/zki_advanced.py
+# filepath: /home/samarth/projects/quantm/prototype/zero.py
 
 import hashlib
 import blake3
 import time
-import os
 import secrets
-import sys
 import json
 import argparse
-from typing import Callable, Dict, Tuple, List, Optional, Any
+from typing import Callable, Dict, Tuple, Any
 from tabulate import tabulate
-
 
 class ZkiError(Exception):
     """Base exception class for ZKI errors."""
@@ -734,7 +731,6 @@ def main():
     if not any([args.compare, args.attack_demo, args.error_handling, 
                 args.multi_user, args.quantum_estimate]):
         run_zki_demonstration(hash_func, hash_name, args.iterations)
-
 
 if __name__ == "__main__":
     main()

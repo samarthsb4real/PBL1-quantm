@@ -7,7 +7,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 from tabulate import tabulate
-from typing import Callable, Dict, List, Tuple
+from typing import Callable, Dict, List
 
 class HashBenchmark:
     """
