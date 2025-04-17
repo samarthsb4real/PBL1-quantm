@@ -1,93 +1,130 @@
 {
   "metadata": {
-    "timestamp": "2025-03-28T13:35:23.000061",
+    "timestamp": "2025-04-17T22:27:27.050679",
     "platform": "linux",
     "python_version": "3.10.12 (main, Feb  4 2025, 14:57:36) [GCC 11.4.0]",
     "cpu_count": 12
   },
   "results": {
     "performance": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "64": {
-          "avg_time": 1.1949878000450554e-06,
-          "throughput": 51.0759660037523,
+          "avg_time": 8.415427999807434e-07,
+          "throughput": 72.52769110661589,
           "iterations": 10000
         },
         "1024": {
-          "avg_time": 1.7180991999339312e-06,
-          "throughput": 568.3970401927626,
+          "avg_time": 9.985232001781697e-07,
+          "throughput": 978.0068202979649,
           "iterations": 2500
         },
         "16384": {
-          "avg_time": 1.7535950399178547e-05,
-          "throughput": 891.026699113607,
+          "avg_time": 9.005868800159078e-06,
+          "throughput": 1734.9797500629816,
           "iterations": 625
         },
         "1048576": {
-          "avg_time": 0.001061075620000338,
-          "throughput": 942.4398988638354,
+          "avg_time": 0.0005226628299988079,
+          "throughput": 1913.2793506710261,
           "iterations": 100
         }
       },
-      "Quantum-Safe": {
+      "SHA-512 (FIPS 180-4)": {
         "64": {
-          "avg_time": 1.4917450000211828e-06,
-          "throughput": 40.91527456041971,
+          "avg_time": 6.328471999950125e-07,
+          "throughput": 96.44532874678283,
           "iterations": 10000
         },
         "1024": {
-          "avg_time": 3.4992935998161555e-06,
-          "throughput": 279.0741823010525,
+          "avg_time": 1.705326799856266e-06,
+          "throughput": 572.6541681525852,
           "iterations": 2500
         },
         "16384": {
-          "avg_time": 2.1787048000260257e-05,
-          "throughput": 717.1692098816394,
+          "avg_time": 1.7752708800253458e-05,
+          "throughput": 880.1473722014141,
           "iterations": 625
         },
         "1048576": {
-          "avg_time": 0.0015082155099935335,
-          "throughput": 663.0352183583416,
+          "avg_time": 0.001106586660002904,
+          "throughput": 903.6797895226531,
+          "iterations": 100
+        }
+      },
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
+        "64": {
+          "avg_time": 1.5832496000257378e-06,
+          "throughput": 38.550558452064536,
+          "iterations": 10000
+        },
+        "1024": {
+          "avg_time": 3.604135600107838e-06,
+          "throughput": 270.95609276487284,
+          "iterations": 2500
+        },
+        "16384": {
+          "avg_time": 2.2847812800318932e-05,
+          "throughput": 683.8729000695371,
+          "iterations": 625
+        },
+        "1048576": {
+          "avg_time": 0.0015896609200035528,
+          "throughput": 629.0649706591296,
           "iterations": 100
         }
       }
     },
     "entropy": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "entropy_score": 1.0,
-        "chi_squared": 3.656469726563153e-05,
+        "chi_squared": 3.515624999998934e-06,
         "bit_distribution": {
-          "zeros_percent": 50.030234375000006,
-          "ones_percent": 49.969765625,
+          "zeros_percent": 49.990625,
+          "ones_percent": 50.009375,
           "ideal_percent": 50.0
         },
         "optimal_distribution": "OPTIMAL (p > 0.05)"
       },
-      "Quantum-Safe": {
+      "SHA-512 (FIPS 180-4)": {
         "entropy_score": 1.0,
-        "chi_squared": 7.05337524413943e-05,
+        "chi_squared": 1.412115478516394e-05,
         "bit_distribution": {
-          "zeros_percent": 50.04199218749999,
-          "ones_percent": 49.9580078125,
+          "zeros_percent": 49.981210937499995,
+          "ones_percent": 50.018789062500005,
+          "ideal_percent": 50.0
+        },
+        "optimal_distribution": "OPTIMAL (p > 0.05)"
+      },
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
+        "entropy_score": 1.0,
+        "chi_squared": 3.0767822265628157e-07,
+        "bit_distribution": {
+          "zeros_percent": 49.9972265625,
+          "ones_percent": 50.002773437500004,
           "ideal_percent": 50.0
         },
         "optimal_distribution": "OPTIMAL (p > 0.05)"
       }
     },
     "collision": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "collisions": 0,
         "collision_rate": 0.0,
         "passed": true
       },
-      "Quantum-Safe": {
+      "SHA-512 (FIPS 180-4)": {
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "passed": true
+      },
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
         "collisions": 0,
         "collision_rate": 0.0,
         "passed": true
       }
     },
     "memory": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "64": {
           "memory_per_call": 0.0,
           "iterations": 156
@@ -105,7 +142,25 @@
           "iterations": 1
         }
       },
-      "Quantum-Safe": {
+      "SHA-512 (FIPS 180-4)": {
+        "64": {
+          "memory_per_call": 0.0,
+          "iterations": 156
+        },
+        "1024": {
+          "memory_per_call": 0.0,
+          "iterations": 9
+        },
+        "16384": {
+          "memory_per_call": 0.0,
+          "iterations": 1
+        },
+        "1048576": {
+          "memory_per_call": 0.0,
+          "iterations": 1
+        }
+      },
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
         "64": {
           "memory_per_call": 0.0,
           "iterations": 156
@@ -125,48 +180,140 @@
       }
     },
     "avalanche": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "64": {
-          "average_bit_change_percentage": 50.0375,
-          "standard_deviation": 2.1287730749630174,
-          "min_change": 43.359375,
-          "max_change": 57.6171875,
-          "ideal_score": 0.03750000000000142,
-          "consistency": 97.87122692503698
+          "average_bit_change_percentage": 50.0609375,
+          "standard_deviation": 3.08474225270524,
+          "min_change": 39.84375,
+          "max_change": 58.984375,
+          "ideal_score": 0.06093750000000142,
+          "consistency": 96.91525774729476
         },
         "1024": {
-          "average_bit_change_percentage": 49.9978515625,
-          "standard_deviation": 2.1665683733823236,
-          "min_change": 43.1640625,
-          "max_change": 59.375,
-          "ideal_score": 0.002148437499997158,
-          "consistency": 97.83343162661768
+          "average_bit_change_percentage": 49.98984375,
+          "standard_deviation": 3.1673238400291797,
+          "min_change": 38.671875,
+          "max_change": 58.984375,
+          "ideal_score": 0.010156250000001421,
+          "consistency": 96.83267615997082
         }
       },
-      "Quantum-Safe": {
+      "SHA-512 (FIPS 180-4)": {
         "64": {
-          "average_bit_change_percentage": 49.9546875,
-          "standard_deviation": 3.0223003352423876,
-          "min_change": 41.796875,
-          "max_change": 59.765625,
-          "ideal_score": 0.04531250000000142,
-          "consistency": 96.97769966475761
+          "average_bit_change_percentage": 50.0587890625,
+          "standard_deviation": 2.308378921040267,
+          "min_change": 41.6015625,
+          "max_change": 57.421875,
+          "ideal_score": 0.05878906249999716,
+          "consistency": 97.69162107895973
         },
         "1024": {
-          "average_bit_change_percentage": 50.017578125,
-          "standard_deviation": 3.087642305005894,
-          "min_change": 41.015625,
-          "max_change": 59.765625,
-          "ideal_score": 0.017578125,
-          "consistency": 96.9123576949941
+          "average_bit_change_percentage": 49.99375,
+          "standard_deviation": 2.1427924417082926,
+          "min_change": 43.5546875,
+          "max_change": 57.6171875,
+          "ideal_score": 0.006250000000001421,
+          "consistency": 97.8572075582917
+        }
+      },
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
+        "64": {
+          "average_bit_change_percentage": 49.863671875,
+          "standard_deviation": 3.1257127849209625,
+          "min_change": 40.234375,
+          "max_change": 63.28125,
+          "ideal_score": 0.13632812499999858,
+          "consistency": 96.87428721507904
+        },
+        "1024": {
+          "average_bit_change_percentage": 50.0015625,
+          "standard_deviation": 3.175711196183069,
+          "min_change": 39.453125,
+          "max_change": 60.9375,
+          "ideal_score": 0.001562499999998579,
+          "consistency": 96.82428880381693
         }
       }
     },
     "edge_cases": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "empty": {
           "status": "SUCCESS",
-          "time_taken": 1.1591999282245524e-05,
+          "time_taken": 3.507000201352639e-06,
+          "hash_output": "e3b0c44298fc1c14...a495991b7852b855",
+          "output_zeros_percent": 51.953125,
+          "output_ones_percent": 48.046875,
+          "is_balanced": true
+        },
+        "large": {
+          "status": "SUCCESS",
+          "time_taken": 0.0005100260000290291,
+          "hash_output": "e23c0cda5bcdecdd...9f5cdb6948e5898d",
+          "output_zeros_percent": 48.046875,
+          "output_ones_percent": 51.953125,
+          "is_balanced": true
+        },
+        "repeated_pattern": {
+          "status": "SUCCESS",
+          "time_taken": 4.368000190879684e-06,
+          "hash_output": "07dab2f3384bc1d0...fbd580b363db6435",
+          "output_zeros_percent": 46.09375,
+          "output_ones_percent": 53.90625,
+          "is_balanced": true
+        },
+        "all_zeros": {
+          "status": "SUCCESS",
+          "time_taken": 1.4420002116821706e-06,
+          "hash_output": "5f70bf18a0860070...cddfaf10ace3c6ef",
+          "output_zeros_percent": 51.171875,
+          "output_ones_percent": 48.828125,
+          "is_balanced": true
+        },
+        "all_ones": {
+          "status": "SUCCESS",
+          "time_taken": 1.3019998732488602e-06,
+          "hash_output": "5f4ecdb7b71c3e40...d94a6f7c32e58bc2",
+          "output_zeros_percent": 45.3125,
+          "output_ones_percent": 54.6875,
+          "is_balanced": true
+        },
+        "alternating": {
+          "status": "SUCCESS",
+          "time_taken": 1.2129999049648177e-06,
+          "hash_output": "a6ab2545f431abaa...5d8e2a67a7d1be98",
+          "output_zeros_percent": 48.046875,
+          "output_ones_percent": 51.953125,
+          "is_balanced": true
+        },
+        "increasing": {
+          "status": "SUCCESS",
+          "time_taken": 1.2030000107188243e-06,
+          "hash_output": "785b0751fc2c53dc...58afe09c242c26c9",
+          "output_zeros_percent": 52.34375,
+          "output_ones_percent": 47.65625,
+          "is_balanced": true
+        },
+        "sparse": {
+          "status": "SUCCESS",
+          "time_taken": 1.7729998944560066e-06,
+          "hash_output": "dc43e372d77536b6...13e692070a538c73",
+          "output_zeros_percent": 48.4375,
+          "output_ones_percent": 51.5625,
+          "is_balanced": true
+        },
+        "unicode_heavy": {
+          "status": "SUCCESS",
+          "time_taken": 1.9840003915305715e-06,
+          "hash_output": "a32f06a9508a0f92...2d99462c02839f33",
+          "output_zeros_percent": 56.25,
+          "output_ones_percent": 43.75,
+          "is_balanced": false
+        }
+      },
+      "SHA-512 (FIPS 180-4)": {
+        "empty": {
+          "status": "SUCCESS",
+          "time_taken": 4.829000317840837e-06,
           "hash_output": "cf83e1357eefb8bd...a538327af927da3e",
           "output_zeros_percent": 49.0234375,
           "output_ones_percent": 50.9765625,
@@ -174,7 +321,7 @@
         },
         "large": {
           "status": "SUCCESS",
-          "time_taken": 0.0010479889997441205,
+          "time_taken": 0.0010730960002547363,
           "hash_output": "990fed5cd10a5499...dc387c2e9fa3a4b8",
           "output_zeros_percent": 46.2890625,
           "output_ones_percent": 53.7109375,
@@ -182,7 +329,7 @@
         },
         "repeated_pattern": {
           "status": "SUCCESS",
-          "time_taken": 7.5750003816210665e-06,
+          "time_taken": 7.704999916313682e-06,
           "hash_output": "46ba5d5fd981d70d...b540e0e94edfe132",
           "output_zeros_percent": 48.828125,
           "output_ones_percent": 51.171875,
@@ -190,7 +337,7 @@
         },
         "all_zeros": {
           "status": "SUCCESS",
-          "time_taken": 2.3749998945277184e-06,
+          "time_taken": 2.124000275216531e-06,
           "hash_output": "8efb4f73c5655351...70617b73eb0b6461",
           "output_zeros_percent": 51.953125,
           "output_ones_percent": 48.046875,
@@ -198,7 +345,7 @@
         },
         "all_ones": {
           "status": "SUCCESS",
-          "time_taken": 2.113999471475836e-06,
+          "time_taken": 2.0439997570065316e-06,
           "hash_output": "b8dfad1a78fd5786...136ffe3e658ca641",
           "output_zeros_percent": 50.390625,
           "output_ones_percent": 49.609375,
@@ -206,7 +353,7 @@
         },
         "alternating": {
           "status": "SUCCESS",
-          "time_taken": 1.9529998098732904e-06,
+          "time_taken": 1.9530002646206412e-06,
           "hash_output": "9b47be1a8b8de589...9b017a01b605cf01",
           "output_zeros_percent": 51.7578125,
           "output_ones_percent": 48.2421875,
@@ -214,7 +361,7 @@
         },
         "increasing": {
           "status": "SUCCESS",
-          "time_taken": 2.0139996195212007e-06,
+          "time_taken": 1.993999831029214e-06,
           "hash_output": "37f652be867f28ed...e231620a130b566c",
           "output_zeros_percent": 50.5859375,
           "output_ones_percent": 49.4140625,
@@ -222,7 +369,7 @@
         },
         "sparse": {
           "status": "SUCCESS",
-          "time_taken": 3.006000042660162e-06,
+          "time_taken": 2.9349998840189073e-06,
           "hash_output": "14084e1308a3467e...b9f80f1e5dd9bfca",
           "output_zeros_percent": 48.828125,
           "output_ones_percent": 51.171875,
@@ -230,17 +377,17 @@
         },
         "unicode_heavy": {
           "status": "SUCCESS",
-          "time_taken": 3.406999894650653e-06,
+          "time_taken": 3.445999936957378e-06,
           "hash_output": "a3a560b3d36904fe...ca1e41f0a91c66b9",
           "output_zeros_percent": 50.78125,
           "output_ones_percent": 49.21875,
           "is_balanced": true
         }
       },
-      "Quantum-Safe": {
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
         "empty": {
           "status": "SUCCESS",
-          "time_taken": 3.98800057155313e-06,
+          "time_taken": 4.6889999794075266e-06,
           "hash_output": "2773f2605f027cae...748c54b62b8816a0",
           "output_zeros_percent": 52.34375,
           "output_ones_percent": 47.65625,
@@ -248,7 +395,7 @@
         },
         "large": {
           "status": "SUCCESS",
-          "time_taken": 0.0013418130001809914,
+          "time_taken": 0.0013642290000461799,
           "hash_output": "3ab6217e3018b68f...c31711e5ad2d12ac",
           "output_zeros_percent": 53.515625,
           "output_ones_percent": 46.484375,
@@ -256,7 +403,7 @@
         },
         "repeated_pattern": {
           "status": "SUCCESS",
-          "time_taken": 1.2053000318701379e-05,
+          "time_taken": 1.2634000086109154e-05,
           "hash_output": "672accb63a5d562c...bed51f0f52467b3a",
           "output_zeros_percent": 47.265625,
           "output_ones_percent": 52.734375,
@@ -264,7 +411,7 @@
         },
         "all_zeros": {
           "status": "SUCCESS",
-          "time_taken": 4.1980001697083935e-06,
+          "time_taken": 4.368000190879684e-06,
           "hash_output": "42b86edb1d4def17...fb36c763c8101afe",
           "output_zeros_percent": 48.828125,
           "output_ones_percent": 51.171875,
@@ -272,7 +419,7 @@
         },
         "all_ones": {
           "status": "SUCCESS",
-          "time_taken": 3.977000233135186e-06,
+          "time_taken": 4.209000053378986e-06,
           "hash_output": "24a1a77ede7f4ae8...1f4af282ba334e73",
           "output_zeros_percent": 48.4375,
           "output_ones_percent": 51.5625,
@@ -280,7 +427,7 @@
         },
         "alternating": {
           "status": "SUCCESS",
-          "time_taken": 3.7770005292259157e-06,
+          "time_taken": 3.986999672633829e-06,
           "hash_output": "57fdcc4d51b002cc...6bdaa592fb0ea54f",
           "output_zeros_percent": 48.046875,
           "output_ones_percent": 51.953125,
@@ -288,7 +435,7 @@
         },
         "increasing": {
           "status": "SUCCESS",
-          "time_taken": 3.8070002119638957e-06,
+          "time_taken": 3.998000011051772e-06,
           "hash_output": "59e0409c38a77689...28b3160fa3b53267",
           "output_zeros_percent": 50.78125,
           "output_ones_percent": 49.21875,
@@ -296,7 +443,7 @@
         },
         "sparse": {
           "status": "SUCCESS",
-          "time_taken": 5.089999831398018e-06,
+          "time_taken": 5.401000180427218e-06,
           "hash_output": "f9fcaf8451aeafc9...4f62a638c1286226",
           "output_zeros_percent": 51.5625,
           "output_ones_percent": 48.4375,
@@ -304,7 +451,7 @@
         },
         "unicode_heavy": {
           "status": "SUCCESS",
-          "time_taken": 5.580999641097151e-06,
+          "time_taken": 6.071999905543635e-06,
           "hash_output": "a0f19254f0785555...d5b6e5a99d4fb0e7",
           "output_zeros_percent": 46.484375,
           "output_ones_percent": 53.515625,
@@ -313,59 +460,87 @@
       }
     },
     "differential": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "1_bytes": {
-          "average_bit_change": 49.940625,
-          "standard_deviation": 2.1850186819853508,
-          "differential_score": 0.05937500000000284
+          "average_bit_change": 49.8859375,
+          "standard_deviation": 3.0301206014571433,
+          "differential_score": 0.11406250000000284
         },
         "2_bytes": {
-          "average_bit_change": 49.8833984375,
-          "standard_deviation": 2.2615179554515126,
-          "differential_score": 0.11660156250000142
+          "average_bit_change": 50.0078125,
+          "standard_deviation": 3.0576132887331418,
+          "differential_score": 0.0078125
         },
         "4_bytes": {
-          "average_bit_change": 50.0806640625,
-          "standard_deviation": 2.2200806058391978,
-          "differential_score": 0.08066406249999858
+          "average_bit_change": 50.09765625,
+          "standard_deviation": 3.1267451181987456,
+          "differential_score": 0.09765625
         },
         "8_bytes": {
-          "average_bit_change": 49.947265625,
-          "standard_deviation": 2.200532293948213,
-          "differential_score": 0.052734375
+          "average_bit_change": 50.01875,
+          "standard_deviation": 3.049970783031167,
+          "differential_score": 0.018749999999997158
         }
       },
-      "Quantum-Safe": {
+      "SHA-512 (FIPS 180-4)": {
         "1_bytes": {
-          "average_bit_change": 50.043359375,
-          "standard_deviation": 3.0576402119561883,
-          "differential_score": 0.04335937500000142
+          "average_bit_change": 49.9630859375,
+          "standard_deviation": 2.1825180346605735,
+          "differential_score": 0.03691406250000284
         },
         "2_bytes": {
-          "average_bit_change": 49.971875,
-          "standard_deviation": 3.0621316742793736,
-          "differential_score": 0.028125000000002842
+          "average_bit_change": 49.9876953125,
+          "standard_deviation": 2.140869402890315,
+          "differential_score": 0.012304687499998579
         },
         "4_bytes": {
-          "average_bit_change": 49.85859375,
-          "standard_deviation": 3.162976183116297,
-          "differential_score": 0.14140625000000284
+          "average_bit_change": 49.9802734375,
+          "standard_deviation": 2.1637663292227347,
+          "differential_score": 0.019726562499997158
         },
         "8_bytes": {
-          "average_bit_change": 50.001953125,
-          "standard_deviation": 3.1958992193228433,
-          "differential_score": 0.001953125
+          "average_bit_change": 50.0177734375,
+          "standard_deviation": 2.119124594913449,
+          "differential_score": 0.017773437499997158
+        }
+      },
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
+        "1_bytes": {
+          "average_bit_change": 50.05234375,
+          "standard_deviation": 3.204078649958079,
+          "differential_score": 0.05234374999999858
+        },
+        "2_bytes": {
+          "average_bit_change": 49.87265625,
+          "standard_deviation": 3.124700278595483,
+          "differential_score": 0.12734375000000142
+        },
+        "4_bytes": {
+          "average_bit_change": 50.02890625,
+          "standard_deviation": 3.0715279679041156,
+          "differential_score": 0.02890624999999858
+        },
+        "8_bytes": {
+          "average_bit_change": 49.91796875,
+          "standard_deviation": 3.2216002057583415,
+          "differential_score": 0.08203125
         }
       }
     },
     "length_extension": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
+        "original_hash": "d72f3a3581091ea6...f096bd23bd102d59",
+        "extended_hash": "c7f5178b1b0f386f...9173f5876ddc7351",
+        "vulnerable": false,
+        "status": "RESISTANT"
+      },
+      "SHA-512 (FIPS 180-4)": {
         "original_hash": "e6a458bc4d0516a3...7fa879a0464e6e3c",
         "extended_hash": "ee6117262825316c...41fc3dd7ecf0a2c8",
         "vulnerable": false,
         "status": "RESISTANT"
       },
-      "Quantum-Safe": {
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
         "original_hash": "6ade01a4fdc6e970...d7103f085ac8f879",
         "extended_hash": "f44469a6b7b40799...4ccd0554a161a966",
         "vulnerable": false,
@@ -373,28 +548,212 @@
       }
     },
     "preimage": {
-      "SHA-512": {
+      "SHA-256 (FIPS 180-4)": {
         "target_pattern": "0000",
         "pattern_bits": 16,
         "found_match": false,
         "attempts": 100,
-        "time_taken": 0.00018050099970423616,
-        "attempts_per_second": 554013.5520792525,
+        "time_taken": 0.0001607710000826046,
+        "attempts_per_second": 622002.724052346,
         "status": "STRONG"
       },
-      "Quantum-Safe": {
+      "SHA-512 (FIPS 180-4)": {
         "target_pattern": "0000",
         "pattern_bits": 16,
         "found_match": false,
         "attempts": 100,
-        "time_taken": 0.0002821019998009433,
-        "attempts_per_second": 354481.7125385923,
+        "time_taken": 0.00017765300026439945,
+        "attempts_per_second": 562895.0811479167,
+        "status": "STRONG"
+      },
+      "Quantum-Safe (SHA-512 + BLAKE3)": {
+        "target_pattern": "0000",
+        "pattern_bits": 16,
+        "found_match": false,
+        "attempts": 100,
+        "time_taken": 0.0002906420004364918,
+        "attempts_per_second": 344065.8949835814,
         "status": "STRONG"
       }
     },
+    "various_inputs": {
+      "plain_text": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592",
+          "time_taken": 1.1219999578315765e-06,
+          "input_size": 43
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "07e547d9586f6a73f73fbac0435ed76951218fb7d0c8d788a309d785436bbb642e93a252a954f23912547d1e8a3b5ed6e1bfd7097821233fa0538f3db854fee6",
+          "time_taken": 1.0620001376082655e-06,
+          "input_size": 43
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "7dc90b39551839bb3660b78a6f4f5428635b5db7a9c70f9924ae83ae84c48391",
+          "time_taken": 2.2449999050877523e-06,
+          "input_size": 43
+        }
+      },
+      "json_data": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "d559595a35304c7757173b1507038776661cbebc313d23d7932ea9ee37845ff0",
+          "time_taken": 9.020000106829684e-07,
+          "input_size": 62
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "f3eda1b5b9ae70248153d5feeb697804e244fd4ce2404e27af211b9e8ed06be6dcb7053ec520fe02502bfc42e4a4ef8a052541284e868629898b152bd2023bdf",
+          "time_taken": 8.910001270123757e-07,
+          "input_size": 62
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "f92ca69ab22e7249dcf6c0e6e3aa7260902adf06178481880874987762170180",
+          "time_taken": 1.9740000425372273e-06,
+          "input_size": 62
+        }
+      },
+      "binary_data": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "473cc66d28c9d242ef004091169acf5a8846bd41995eb43760c85f98728bf86e",
+          "time_taken": 1.4330003068607766e-06,
+          "input_size": 1024
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "e8dc37a522b22ef964914c1d88dd70e8ed97c8b04409d042a28283440487236b2af179e821a9a431b1bd1d16554f41935d576674bc588d6010047b27af6d6f47",
+          "time_taken": 2.064000000245869e-06,
+          "input_size": 1024
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "16b09d32277fd178124cbed14ea7edaaec6a044881119a427654eaaeda8f780a",
+          "time_taken": 4.920000264974078e-06,
+          "input_size": 1024
+        }
+      },
+      "repeated_bytes": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "6ab72eeb9e77b07540897e0c8d6d23ec8eef0f8c3a47e1b3f4e93443d9536bed",
+          "time_taken": 1.5230002645694185e-06,
+          "input_size": 1024
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "6ceec4ab9b9b8a5839e6650648089e263b6645d4be3e1912bf867c0e3e174f976a39f5446c4bd1d57d837d6319b123103fe2fee2f590380a83fe4d0ed98099ef",
+          "time_taken": 1.993999831029214e-06,
+          "input_size": 1024
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "b854808494e406ca8be572a786307648b37b19361c227fad08627c4248658a7a",
+          "time_taken": 4.2279998524463736e-06,
+          "input_size": 1024
+        }
+      },
+      "structured_data": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "4a03a08ecc2b840cdfd8037f8df1a58151baef1585973ce6b1d5dc64876a869d",
+          "time_taken": 2.12399982046918e-06,
+          "input_size": 598
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "77c76636676a2de6f5bc0d648060e72ea98428278a28aa9ff926750762a63548fd6b98299612e066992bd4588167a5f460c1514de0194a2347cd1c60754c7e3b",
+          "time_taken": 2.494000000297092e-06,
+          "input_size": 598
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "7764ac583a29326f5e9f122ac8df8be4c4ff312179bbae1a4ac4514496c32dc8",
+          "time_taken": 6.172000212245621e-06,
+          "input_size": 598
+        }
+      },
+      "unicode_text": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "53da7a9919fcbde6a64af9e4850064e9c2db2a301c3a9ab9b31d1a93131c8586",
+          "time_taken": 8.920001164369751e-07,
+          "input_size": 46
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "2c88601ad3cd2d649f3fa23724f2b2223494b7d28ff831f90314073fca5372f9f71faf5780985fc8cb2419fdd220f964ae4c1821525ffa0522cd3ee48de676f8",
+          "time_taken": 9.509999472356867e-07,
+          "input_size": 46
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "d254aa3fc7d59697c5139591284c84a3b5cda55e0febab3b3ad9dfb6771b8792",
+          "time_taken": 2.0739998944918625e-06,
+          "input_size": 46
+        }
+      },
+      "emoji": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "60ebfeb88dc85524360ab603060526820ce63eebd2111911752f16a1c3e9f89b",
+          "time_taken": 8.719998731976375e-07,
+          "input_size": 23
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "4f9be459574f95e10c96f9fde756cc0dfc55fe05ef89e8c72e2d88b0ebe2a53f40106614814a3cb7a0bfe5b4957e301490a5b2d1d535af8017e04928761870e2",
+          "time_taken": 8.71000338520389e-07,
+          "input_size": 23
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "597764dc59e1c348f115e8ec7be306fa0c6251c9778b9dfeb2879a2cde8afcaa",
+          "time_taken": 1.9139997675665654e-06,
+          "input_size": 23
+        }
+      }
+    },
+    "file_inputs": {
+      "sample.txt": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "558da0085c1e6b3418ef6358d8ac270ea7f88185b71a25eae50a5bb39d1a71bb",
+          "time_taken": 9.158000011666445e-06,
+          "input_size": 2800
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "6272b2fa3efe2c8fc79b0b2b1bf15fade8bba19525176ce8517a5f8fc9e152f4a0112bd6bc6b94f7735132867ce87069cdda4bc11e73c285df0e7de967d9dc42",
+          "time_taken": 8.075000096141594e-06,
+          "input_size": 2800
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "2bf92e12b7d72b8f1fffd39e5ee38e649a338a4609596e604f84c86d9078cf9b",
+          "time_taken": 1.839499964262359e-05,
+          "input_size": 2800
+        }
+      },
+      "binary.dat": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "f7441d62e27f31e0fdcf14ef75578ad4b5a4ac4ac81b229ae628d80c649c8dfd",
+          "time_taken": 1.2013999821647303e-05,
+          "input_size": 10240
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "ee1867db51ad2f36c9f4b5b0f09214fa3fdf260786cf0ec092fd356328788ac18cc8df3d1b816a467da2b95b969438d5211ed3eab5cdf831d1b2ca137d3cad08",
+          "time_taken": 2.0429999949556077e-05,
+          "input_size": 10240
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "03893fe25e7be22e4838903c70f4ac2d310a72bdf41d72437fdbe9e264813337",
+          "time_taken": 3.057899994018953e-05,
+          "input_size": 10240
+        }
+      },
+      "data.json": {
+        "SHA-256 (FIPS 180-4)": {
+          "hash_value": "109622a47459b3b73f5da5b6e3573dba002b077cf3697b37fc4b3e2e263ffec9",
+          "time_taken": 1.0169000233872794e-05,
+          "input_size": 4900
+        },
+        "SHA-512 (FIPS 180-4)": {
+          "hash_value": "abb98ea7bdf0be458f02fca0646e83dddc5bbfacde4490f4a3e374780824ad74a68ac6179fe6808af43f7a57e7cb2ab204e5704b03a5d00abc12482616a20551",
+          "time_taken": 1.6260999927908415e-05,
+          "input_size": 4900
+        },
+        "Quantum-Safe (SHA-512 + BLAKE3)": {
+          "hash_value": "5c89c48725de74f05e9c539d7dc0eb9eba605fc68c64240627160e73868d5480",
+          "time_taken": 1.7654000203037867e-05,
+          "input_size": 4900
+        }
+      }
+    },
     "sample_hashes": {
-      "SHA-512": "849d1697c7a48b7413a131e20d3665ced5b2410bf234eb18da3aa66dc82e1c98bf981f0224004187a1fbcb851412baacf421aff58f01ae0c40a2f7d1f104107a",
-      "Quantum-Safe": "c6376b48a4628a71d48d4eb95aa5c1a597002e8d6fc37d2f7bb3263882524a12"
+      "SHA-256 (FIPS 180-4)": "f2b44e0d1e678a9764a1f0b0eb21bd92cdccf10129994552a6edb4e39b1d0422",
+      "SHA-512 (FIPS 180-4)": "849d1697c7a48b7413a131e20d3665ced5b2410bf234eb18da3aa66dc82e1c98bf981f0224004187a1fbcb851412baacf421aff58f01ae0c40a2f7d1f104107a",
+      "Quantum-Safe (SHA-512 + BLAKE3)": "c6376b48a4628a71d48d4eb95aa5c1a597002e8d6fc37d2f7bb3263882524a12"
     }
   }
 }
