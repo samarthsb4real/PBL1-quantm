@@ -14,7 +14,6 @@ import psutil
 import json
 from datetime import datetime
 
-
 class HashBenchmark:
     """
     A comprehensive framework for benchmarking and analyzing cryptographic hash functions
@@ -98,7 +97,7 @@ class HashBenchmark:
                     "digest_size": "256 bits (32 bytes) from BLAKE3 output",
                     "first_stage": "SHA-512 with 512-bit output",
                     "second_stage": "BLAKE3 with input: SHA-512(message) || message",
-                    "internal_state": "BLAKE3 uses 8 × 4 × 32-bit state matrix",
+                    "internal_state": "BLAKE3 uses 8 x 4 x 32-bit state matrix",
                     "operations": "ARX (Addition, Rotation, XOR) operations from ChaCha"
                 },
                 "security": {

@@ -1,0 +1,9 @@
+Registered hash functions: SHA-256 (FIPS 180-4), SHA-512 (FIPS 180-4), Quantum-Safe (SHA-512 + BLAKE3)
+Running quick benchmark suite...
+Benchmark completed in 0.99 seconds
+Results saved to /home/samarth/projects/quantm/CLI/cli_outputs/benchmarks/20250418-002557
+Registered hash functions: SHA-256 (FIPS 180-4), SHA-512 (FIPS 180-4), Quantum-Safe (SHA-512 + BLAKE3)
+Running quick benchmark suite...
+Benchmark completed in 0.98 seconds
+Results saved to /home/samarth/projects/quantm/CLI/cli_outputs/benchmarks/20250418-003138
+Markdown report generated and saved to /home/samarth/projects/quantm/CLI/cli_outputs/benchmarks/20250418-003138
