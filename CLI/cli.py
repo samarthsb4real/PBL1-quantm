@@ -858,6 +858,18 @@ def analyze_hardware_performance(benchmark):
     benchmark.results['hardware_performance'] = results
     return results
 
+def test_with_file_inputs(self, file_paths, progress_callback=None):
+    """Process files and optionally use a progress callback"""
+    for i, file_path in enumerate(file_paths):
+        if progress_callback:
+            progress_callback(i, len(file_paths))
+        # Add your file processing logic here
+        # Example: Read file and process its content
+        with open(file_path, 'rb') as f:
+            data = f.read()
+            # Process the data (e.g., hash it, analyze it, etc.)
+            pass
+
 def main():
     """Enhanced command-line interface for quantum-safe hash benchmark utility."""
     
@@ -1401,7 +1413,6 @@ def main():
     return 0
 
 def print_welcome_message():
-    """Print welcome message and example commands"""
     print("\n" + "="*80)
     print(" Quantum-Safe Hash Benchmark Framework ".center(80, "="))
     print("="*80 + "\n")
