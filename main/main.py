@@ -41,7 +41,91 @@ class HashBenchmark:
         self.hash_functions[name] = func
         return self
     
-    def sha2_hash(self, data: bytes) -> str:
+    def get_algorithm_details(self) -> Dict[str, Dict]:
+        """
+        Provide detailed technical information about each hash algorithm.
+        
+        Returns:
+            Dictionary with algorithm specifications and security properties
+        """
+        details = {
+            "SHA-256 (FIPS 180-4)": {
+                "family": "SHA-2",
+                "structure": "Merkle-Damgård construction with Davies-Meyer compression",
+                "designer": "National Security Agency (NSA)",
+                "standardization": "NIST FIPS 180-4 (August 2015)",
+                "specifications": {
+                    "digest_size": "256 bits (32 bytes)",
+                    "block_size": "512 bits (64 bytes)",
+                    "word_size": "32 bits",
+                    "rounds": "64 rounds",
+                    "operations": "Bitwise AND, OR, XOR, NOT, modular addition, rotations, shifts"
+                },
+                "security": {
+                    "collision_resistance": "128 bits (classical), 85 bits (quantum with Grover's)",
+                    "preimage_resistance": "256 bits (classical), 128 bits (quantum with Grover's)",
+                    "known_attacks": "None that break full rounds; best attacks are on reduced rounds",
+                    "length_extension": "Vulnerable without proper implementation measures"
+                },
+                "typical_applications": "TLS, SSH, digital signatures, blockchain, file integrity"
+            },
+            "SHA-512 (FIPS 180-4)": {
+                "family": "SHA-2",
+                "structure": "Merkle-Damgård construction with Davies-Meyer compression",
+                "designer": "National Security Agency (NSA)",
+                "standardization": "NIST FIPS 180-4 (August 2015)",
+                "specifications": {
+                    "digest_size": "512 bits (64 bytes)",
+                    "block_size": "1024 bits (128 bytes)",
+                    "word_size": "64 bits",
+                    "rounds": "80 rounds",
+                    "operations": "Bitwise AND, OR, XOR, NOT, modular addition, rotations, shifts"
+                },
+                "security": {
+                    "collision_resistance": "256 bits (classical), 128 bits (quantum with Grover's)",
+                    "preimage_resistance": "512 bits (classical), 256 bits (quantum with Grover's)",
+                    "known_attacks": "None that break full rounds; best attacks are on reduced rounds",
+                    "length_extension": "Vulnerable without proper implementation measures"
+                },
+                "typical_applications": "High-security applications, PKI, HMAC, password hashing"
+            },
+            "Quantum-Safe (SHA-512 + BLAKE3)": {
+                "family": "Composite hash (SHA-2 + BLAKE3)",
+                "structure": "Sequential composition with concatenation",
+                "designer": "QUANTM Project (combining NIST and BLAKE3 team designs)",
+                "standardization": "Custom design based on FIPS 180-4 and BLAKE3 specification",
+                "specifications": {
+                    "digest_size": "256 bits (32 bytes) from BLAKE3 output",
+                    "first_stage": "SHA-512 with 512-bit output",
+                    "second_stage": "BLAKE3 with input: SHA-512(message) || message",
+                    "internal_state": "BLAKE3 uses 8 × 4 × 32-bit state matrix",
+                    "operations": "ARX (Addition, Rotation, XOR) operations from ChaCha"
+                },
+                "security": {
+                    "collision_resistance": "Minimum of both algorithms - 256 bits classical",
+                    "preimage_resistance": "Enhanced through composition - stronger than individual functions",
+                    "quantum_resistance": "At least 128 bits against Grover's algorithm",
+                    "composition_advantage": "Defense in depth; attacker must break both algorithms",
+                    "side_channel_protection": "BLAKE3 designed with constant-time implementation"
+                },
+                "blake3_details": {
+                    "designer": "Jack O'Connor, Jean-Philippe Aumasson, Samuel Neves, Zooko Wilcox-O'Hearn",
+                    "year": "2020",
+                    "features": "Parallelizable, SIMD-optimized, built-in keying and tree hashing",
+                    "speed": "Typically 4-8x faster than SHA-2 on modern CPUs"
+                },
+                "typical_applications": "Post-quantum cryptographic systems, zero-knowledge proofs, blockchain"
+            }
+        }
+        return details
+    
+    def sha256_hash(self, data: bytes) -> str:
+        """Compute the SHA-256 hash of the input data."""
+        if not isinstance(data, bytes):
+            raise TypeError("Input data must be of type bytes")
+        return hashlib.sha256(data).hexdigest()
+    
+    def sha512_hash(self, data: bytes) -> str:
         """Compute the SHA-512 hash of the input data."""
         if not isinstance(data, bytes):
             raise TypeError("Input data must be of type bytes")
@@ -532,6 +616,99 @@ class HashBenchmark:
         self.results['preimage'] = results
         return results
     
+    def test_with_various_inputs(self, sample_files=None):
+        """Test hash functions with diverse real-world inputs."""
+        
+        if not sample_files:
+            # Default test inputs if none provided
+            sample_files = {
+                "plain_text": b"The quick brown fox jumps over the lazy dog",
+                "json_data": b'{"user":"alice","role":"admin","permissions":["read","write"]}',
+                "binary_data": secrets.token_bytes(1024),
+                "repeated_bytes": b"A" * 1024,
+                "structured_data": b"BEGIN_HEADER" + secrets.token_bytes(64) + b"END_HEADER" + secrets.token_bytes(512),
+                "unicode_text": "Unicode: ñáéíóúüÑÁÉÍÓÚÜ¿¡€ç".encode('utf-8'),
+                "emoji": "🔐🔑💻🛡️🔒".encode('utf-8')
+            }
+        
+        results = {}
+        
+        for name, input_data in sample_files.items():
+            print(f"Testing with input type: {name}")
+            file_results = {}
+            
+            for hash_name, hash_func in self.hash_functions.items():
+                # Measure performance and generate hash
+                start_time = time.perf_counter()
+                hash_value = hash_func(input_data)
+                end_time = time.perf_counter()
+                
+                # Record results
+                file_results[hash_name] = {
+                    "hash_value": hash_value,
+                    "time_taken": end_time - start_time,
+                    "input_size": len(input_data)
+                }
+            
+            results[name] = file_results
+        
+        self.results['various_inputs'] = results
+        return results
+
+    def test_with_file_inputs(self, file_paths=None):
+        """Test hash functions with actual files from the filesystem."""
+        
+        # Default test files if none provided
+        if not file_paths:
+            # Create some test files of different types
+            os.makedirs("./test_files", exist_ok=True)
+            file_paths = []
+            
+            # Text file
+            with open("./test_files/sample.txt", "w") as f:
+                f.write("This is sample text content\n" * 100)
+            file_paths.append("./test_files/sample.txt")
+            
+            # Binary file
+            with open("./test_files/binary.dat", "wb") as f:
+                f.write(secrets.token_bytes(10240))
+            file_paths.append("./test_files/binary.dat")
+            
+            # JSON file
+            with open("./test_files/data.json", "w") as f:
+                json.dump({"data": [i for i in range(1000)]}, f)
+            file_paths.append("./test_files/data.json")
+        
+        results = {}
+        
+        for file_path in file_paths:
+            try:
+                with open(file_path, "rb") as file:
+                    file_data = file.read()
+                    
+                file_name = os.path.basename(file_path)
+                print(f"Testing with file: {file_name} ({len(file_data)} bytes)")
+                
+                # Process this file with all hash functions
+                file_results = {}
+                for hash_name, hash_func in self.hash_functions.items():
+                    start_time = time.perf_counter()
+                    hash_value = hash_func(file_data)
+                    end_time = time.perf_counter()
+                    
+                    file_results[hash_name] = {
+                        "hash_value": hash_value,
+                        "time_taken": end_time - start_time,
+                        "input_size": len(file_data)
+                    }
+                
+                results[file_name] = file_results
+            except Exception as e:
+                print(f"Error processing file {file_path}: {str(e)}")
+        
+        self.results['file_inputs'] = results
+        return results
+
     def run_all_benchmarks(self, sample: bytes = None) -> Dict:
         """
         Run all benchmark and analysis methods.
@@ -574,6 +751,12 @@ class HashBenchmark:
         
         print("- Testing preimage resistance...")
         self.test_preimage_resistance()
+        
+        print("- Testing with various real-world inputs...")
+        self.test_with_various_inputs()
+        
+        print("- Testing with file inputs...")
+        self.test_with_file_inputs()
         
         # Compute sample hashes for display
         sample_hashes = {}
@@ -684,6 +867,39 @@ class HashBenchmark:
             report.append("## Sample Hash Outputs")
             for name, hash_val in self.results['sample_hashes'].items():
                 report.append(f"**{name}**: `{hash_val}`\n")
+        
+        # Technical details about algorithms
+        report.append("## Algorithm Technical Details\n")
+        algorithm_details = self.get_algorithm_details()
+        for name, details in algorithm_details.items():
+            report.append(f"### {name}")
+            
+            # Basic information
+            report.append(f"**Family**: {details['family']}")
+            report.append(f"**Structure**: {details['structure']}")
+            report.append(f"**Designer**: {details['designer']}")
+            report.append(f"**Standardization**: {details['standardization']}\n")
+            
+            # Technical specifications
+            report.append("#### Specifications")
+            for key, value in details['specifications'].items():
+                report.append(f"- **{key.replace('_', ' ').title()}**: {value}")
+            report.append("")
+            
+            # Security properties
+            report.append("#### Security Properties")
+            for key, value in details['security'].items():
+                report.append(f"- **{key.replace('_', ' ').title()}**: {value}")
+            report.append("")
+            
+            # BLAKE3 details if available
+            if 'blake3_details' in details:
+                report.append("#### BLAKE3 Algorithm Details")
+                for key, value in details['blake3_details'].items():
+                    report.append(f"- **{key.replace('_', ' ').title()}**: {value}")
+                report.append("")
+            
+            report.append(f"**Applications**: {details['typical_applications']}\n")
         
         # Performance results
         if 'performance' in self.results:
@@ -1033,9 +1249,10 @@ if __name__ == "__main__":
     # Create benchmark instance
     benchmark = HashBenchmark(output_dir="app3-hash_benchmark_results")
     
-    # Register hash functions
-    benchmark.register_hash_function("SHA-512", benchmark.sha2_hash)
-    benchmark.register_hash_function("Quantum-Safe", benchmark.quantum_safe_hash)
+    # Register hash functions with proper standardized names
+    benchmark.register_hash_function("SHA-256 (FIPS 180-4)", benchmark.sha256_hash)
+    benchmark.register_hash_function("SHA-512 (FIPS 180-4)", benchmark.sha512_hash)  # Updated method name
+    benchmark.register_hash_function("Quantum-Safe (SHA-512 + BLAKE3)", benchmark.quantum_safe_hash)
     
     # Print registered functions
     print(f"Registered functions: {list(benchmark.hash_functions.keys())}")
