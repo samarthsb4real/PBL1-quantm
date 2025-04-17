@@ -1,7 +1,10 @@
 from typing import Callable, List
+from nbclient import execute
 import numpy as np
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
+
+from prototype.zero import quantum_safe_hash, sha256_hash
 
 def grovers_algorithm(target_hash: str, hash_function: Callable[[bytes], str], num_iterations: int = 1) -> List[str]:
     """
@@ -65,7 +68,7 @@ def test_grovers_algorithm():
     target_hash = "example_target_hash"
     
     # Test with SHA-512
-    sha512_preimages = grovers_algorithm(target_hash, sha2_hash)
+    sha512_preimages = grovers_algorithm(target_hash, sha256_hash)
     
     # Test with Quantum-Safe hash
     quantum_safe_preimages = grovers_algorithm(target_hash, quantum_safe_hash)

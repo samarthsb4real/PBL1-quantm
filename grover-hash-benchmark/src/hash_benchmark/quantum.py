@@ -1,5 +1,5 @@
+from nbclient import execute
 from qiskit import QuantumCircuit
-from qiskit.primitives.sampler import Sampler
 from qiskit_aer import Aer
 import hashlib
 import secrets

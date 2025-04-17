@@ -1,5 +1,5 @@
 from qiskit import QuantumCircuit
-from qiskit.primitives import Sampler
+from qiskit.primitives.sampler import Sampler
 from qiskit_aer import Aer
 import hashlib
 import secrets
