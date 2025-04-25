@@ -1132,12 +1132,17 @@ def main():
             logger.debug(f"Processed file: {file_name}, {file_size/1024:.2f} KB")
         
         # Analyze files
-        benchmark.test_with_file_inputs(args.files, progress_callback=track_progress)
+        benchmark.test_with_file_inputs(args.files)
+        pbar.update(len(args.files))
         pbar.close()
         
-        # Save results in requested format
-        if args.format != 'markdown':
-            save_summary(benchmark.results, args.output, format=args.format)
+        # Save results in all formats for better compatibility
+        save_summary(benchmark.results, args.output, format='text')
+        save_summary(benchmark.results, args.output, format='json')
+        
+        # If markdown format is available, generate a special report
+        if hasattr(benchmark, 'generate_report'):
+            benchmark.generate_report()
         
         logger.info(f"Analysis completed. Results saved to {os.path.abspath(args.output)}")
     

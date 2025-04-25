@@ -654,59 +654,75 @@ class HashBenchmark:
         self.results['various_inputs'] = results
         return results
 
-    def test_with_file_inputs(self, file_paths=None):
-        """Test hash functions with actual files from the filesystem."""
-        
-        # Default test files if none provided
-        if not file_paths:
-            # Create some test files of different types
-            os.makedirs("./test_files", exist_ok=True)
-            file_paths = []
-            
-            # Text file
-            with open("./test_files/sample.txt", "w") as f:
-                f.write("This is sample text content\n" * 100)
-            file_paths.append("./test_files/sample.txt")
-            
-            # Binary file
-            with open("./test_files/binary.dat", "wb") as f:
-                f.write(secrets.token_bytes(10240))
-            file_paths.append("./test_files/binary.dat")
-            
-            # JSON file
-            with open("./test_files/data.json", "w") as f:
-                json.dump({"data": [i for i in range(1000)]}, f)
-            file_paths.append("./test_files/data.json")
-        
+    def test_with_file_inputs(self, file_paths):
+        """Test hash functions with input files and analyze them"""
         results = {}
         
         for file_path in file_paths:
+            print(f"Testing with file: {file_path} ({os.path.getsize(file_path)} bytes)")
+            
             try:
-                with open(file_path, "rb") as file:
-                    file_data = file.read()
+                with open(file_path, 'rb') as f:
+                    data = f.read()
                     
-                file_name = os.path.basename(file_path)
-                print(f"Testing with file: {file_name} ({len(file_data)} bytes)")
-                
-                # Process this file with all hash functions
-                file_results = {}
-                for hash_name, hash_func in self.hash_functions.items():
-                    start_time = time.perf_counter()
-                    hash_value = hash_func(file_data)
-                    end_time = time.perf_counter()
+                    # Skip empty files
+                    if len(data) == 0:
+                        print(f"Skipping empty file: {file_path}")
+                        continue
                     
-                    file_results[hash_name] = {
-                        "hash_value": hash_value,
-                        "time_taken": end_time - start_time,
-                        "input_size": len(file_data)
+                    # File-specific results
+                    file_results = {
+                        'size': len(data),
+                        'hashes': {},
+                        'time': {}
                     }
-                
-                results[file_name] = file_results
+                    
+                    # Generate hashes with each algorithm
+                    for name, func in self.hash_functions.items():
+                        start_time = time.time()
+                        hash_value = func(data)
+                        end_time = time.time()
+                        
+                        file_results['hashes'][name] = hash_value
+                        file_results['time'][name] = end_time - start_time
+                    
+                    # Add to overall results
+                    results[os.path.basename(file_path)] = file_results
+                    
             except Exception as e:
-                print(f"Error processing file {file_path}: {str(e)}")
+                print(f"Error processing {file_path}: {str(e)}")
         
-        self.results['file_inputs'] = results
+        # Store results for reporting
+        self.results['file_analysis'] = results
+        
+        # Generate report
+        self._generate_file_analysis_report(results)
+        
         return results
+
+    def _generate_file_analysis_report(self, results):
+        """Generate report for file analysis"""
+        os.makedirs(self.output_dir, exist_ok=True)
+        
+        with open(os.path.join(self.output_dir, 'file_analysis.md'), 'w') as f:
+            f.write("# File Analysis Report\n\n")
+            f.write(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+            
+            for filename, data in results.items():
+                f.write(f"## {filename}\n\n")
+                f.write(f"File size: {data['size']} bytes\n\n")
+                
+                f.write("### Hashes\n\n")
+                for algo, hash_val in data['hashes'].items():
+                    f.write(f"**{algo}**: `{hash_val}`\n\n")
+                
+                f.write("### Timing\n\n")
+                f.write("| Algorithm | Time (seconds) |\n")
+                f.write("|-----------|---------------|\n")
+                for algo, timing in data['time'].items():
+                    f.write(f"| {algo} | {timing:.6f} |\n")
+                
+                f.write("\n---\n\n")
 
     def run_all_benchmarks(self, sample: bytes = None) -> Dict:
         """
