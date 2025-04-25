@@ -20,6 +20,9 @@ import struct
 import math
 from collections import defaultdict
 import secrets
+from scipy import stats
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend
 
 # Define a global variable for the output directory
 OUTPUT_BASE_DIR = "cli_outputs"
@@ -124,6 +127,11 @@ def save_summary(results, output_dir, format='text'):
                 f.write("\nAvalanche Effect Summary:\n")
                 for algo, sizes in results['avalanche'].items():
                     f.write(f"- {algo}: Avg deviation from ideal: {sum(s['ideal_score'] for s in sizes.values())/len(sizes):.4f}\n")
+            
+            if results and 'file_analysis' in results:
+                f.write("\nFile Analysis Summary:\n")
+                for filename, data in results['file_analysis'].items():
+                    f.write(f"- {filename}: {data['size']} bytes\n")
 
 def save_technical_report(results, output_dir):
     """Generate comprehensive technical report with statistical data and charts"""
@@ -913,6 +921,8 @@ def main():
     bench_parser.add_argument('--format', choices=['markdown', 'json', 'csv', 'text'],
                             default='markdown',
                             help='Output format for results')
+    bench_parser.add_argument('--deep-analysis', action='store_true',
+                            help='Run additional benchmark tests for comprehensive analysis')
     
     # Analyze command
     analyze_parser = subparsers.add_parser('analyze', help='Analyze specific file(s)')
@@ -1080,7 +1090,14 @@ def main():
             else:
                 # Run all benchmark tests
                 results = benchmark.run_all_benchmarks()
-                
+        
+        # After file analysis
+        if args.deep_analysis:
+            logger.info("Running additional benchmark tests for comprehensive analysis...")
+            benchmark.analyze_entropy(sample_size=1000)
+            benchmark.evaluate_avalanche_effect(iterations=100)
+            benchmark.test_collision_resistance(sample_size=1000)
+        
         # Perform statistical analysis
         analyze_statistical_distribution(benchmark)
         
@@ -1106,6 +1123,12 @@ def main():
             logger.info(f"Markdown report generated and saved to {os.path.abspath(args.output)}")
         else:
             save_summary(benchmark.results, args.output, format=args.format)
+        
+        # After analysis is complete:
+        print(f"Results directory contents:")
+        for root, dirs, files in os.walk(args.output):
+            for file in files:
+                print(f" - {os.path.join(root, file)}")
     
     elif args.command == 'analyze':
         # Create benchmark instance
@@ -1135,6 +1158,43 @@ def main():
         benchmark.test_with_file_inputs(args.files)
         pbar.update(len(args.files))
         pbar.close()
+
+        # Create directories for output
+        os.makedirs(args.output, exist_ok=True)
+
+        # Generate report
+        if hasattr(benchmark, 'generate_report'):
+            report_text = benchmark.generate_report()
+            with open(os.path.join(args.output, 'hash_function_analysis_report.md'), 'w') as f:
+                f.write(report_text)
+            logger.info(f"Analysis report saved to {os.path.abspath(os.path.join(args.output, 'hash_function_analysis_report.md'))}")
+        
+        # Create a custom file analysis report
+        if 'file_analysis' in benchmark.results:
+            os.makedirs(args.output, exist_ok=True)
+            report_path = os.path.join(args.output, 'file_analysis_report.md')
+            
+            with open(report_path, 'w') as f:
+                f.write("# File Analysis Report\n\n")
+                f.write(f"Generated on: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+                
+                for filename, data in benchmark.results['file_analysis'].items():
+                    f.write(f"## {filename}\n\n")
+                    f.write(f"File size: {data['size']} bytes\n\n")
+                    
+                    f.write("### Hashes\n\n")
+                    for algo, hash_val in data['hashes'].items():
+                        f.write(f"**{algo}**: `{hash_val}`\n\n")
+                    
+                    f.write("### Timing\n\n")
+                    f.write("| Algorithm | Time (seconds) |\n")
+                    f.write("|-----------|---------------|\n")
+                    for algo, timing in data['time'].items():
+                        f.write(f"| {algo} | {timing:.6f} |\n")
+                    
+                    f.write("\n---\n\n")
+            
+            logger.info(f"File analysis report saved to {report_path}")
         
         # Save results in all formats for better compatibility
         save_summary(benchmark.results, args.output, format='text')
@@ -1145,6 +1205,192 @@ def main():
             benchmark.generate_report()
         
         logger.info(f"Analysis completed. Results saved to {os.path.abspath(args.output)}")
+        
+        # After analysis is complete:
+        print(f"Results directory contents:")
+        for root, dirs, files in os.walk(args.output):
+            for file in files:
+                print(f" - {os.path.join(root, file)}")
+        
+        # Create visualization directory
+        vis_dir = os.path.join(args.output, 'visualizations')
+        os.makedirs(vis_dir, exist_ok=True)
+
+        # Generate visualizations and score analysis if matplotlib is available
+        try:
+            import matplotlib.pyplot as plt
+            import numpy as np
+            from matplotlib.colors import LinearSegmentedColormap
+            
+            logger.info("Generating analysis visualizations...")
+            
+            if 'file_analysis' in benchmark.results:
+                for filename, data in benchmark.results['file_analysis'].items():
+                    # 1. Performance comparison bar chart
+                    plt.figure(figsize=(10, 6))
+                    algorithms = list(data['time'].keys())
+                    times = list(data['time'].values())
+                    
+                    plt.bar(algorithms, times, color=['#3498db', '#e74c3c', '#2ecc71'])
+                    plt.title(f'Hash Algorithm Performance for {filename}')
+                    plt.xlabel('Algorithm')
+                    plt.ylabel('Time (seconds)')
+                    plt.xticks(rotation=15)
+                    plt.tight_layout()
+                    plt.savefig(os.path.join(vis_dir, f'{os.path.splitext(filename)[0]}_performance.png'))
+                    plt.close()
+                    
+                    # 2. Byte distribution visualization (first 1000 bytes)
+                    if data['size'] > 0:
+                        try:
+                            with open(file_path, 'rb') as f:
+                                file_bytes = f.read(min(1000, data['size']))
+                                
+                            byte_counts = [0] * 256
+                            for b in file_bytes:
+                                byte_counts[b] += 1
+                            
+                            plt.figure(figsize=(12, 6))
+                            plt.bar(range(256), byte_counts, color='#9b59b6', alpha=0.7)
+                            plt.title(f'Byte Distribution for {filename} (first {len(file_bytes)} bytes)')
+                            plt.xlabel('Byte Value')
+                            plt.ylabel('Frequency')
+                            plt.tight_layout()
+                            plt.savefig(os.path.join(vis_dir, f'{os.path.splitext(filename)[0]}_distribution.png'))
+                            plt.close()
+                        except Exception as e:
+                            logger.warning(f"Could not generate byte distribution: {str(e)}")
+                    
+                    # 3. Hash visualization (bit patterns)
+                    for algo, hash_value in data['hashes'].items():
+                        # Convert hex hash to binary
+                        try:
+                            binary = bin(int(hash_value, 16))[2:].zfill(len(hash_value) * 4)
+                            hash_matrix = np.zeros((16, len(binary) // 16))
+                            
+                            # Fill the matrix with bits
+                            for i, bit in enumerate(binary):
+                                row = i % 16
+                                col = i // 16
+                                hash_matrix[row][col] = int(bit)
+                            
+                            # Create a heatmap
+                            plt.figure(figsize=(10, 6))
+                            cmap = LinearSegmentedColormap.from_list('custom', ['#ffffff', '#2c3e50'])
+                            plt.imshow(hash_matrix, cmap=cmap, interpolation='nearest')
+                            plt.title(f'{algo} Hash Bit Pattern for {filename}')
+                            plt.colorbar(label='Bit Value')
+                            plt.tight_layout()
+                            plt.savefig(os.path.join(vis_dir, f'{os.path.splitext(filename)[0]}_{algo}_bits.png'))
+                            plt.close()
+                        except Exception as e:
+                            logger.warning(f"Could not generate bit pattern for {algo}: {str(e)}")
+                    
+                    # 4. Calculate and store analytics scores
+                    analytics_scores = {
+                        'size_score': min(10, data['size'] / 1024),  # 0-10 based on KB
+                        'timing_scores': {},
+                        'complexity_score': 0
+                    }
+                    
+                    # Score based on timing (lower is better)
+                    fastest_time = min(data['time'].values()) if data['time'] else 0
+                    for algo, time_val in data['time'].items():
+                        relative_speed = fastest_time / time_val if time_val > 0 else 1
+                        analytics_scores['timing_scores'][algo] = round(relative_speed * 10, 2)  # 0-10 scale
+                    
+                    # Score file complexity (entropy-based)
+                    if data['size'] > 0:
+                        try:
+                            with open(file_path, 'rb') as f:
+                                sample = f.read(min(10000, data['size']))
+                            
+                            # Calculate Shannon entropy
+                            byte_freq = {}
+                            for b in sample:
+                                byte_freq[b] = byte_freq.get(b, 0) + 1
+                            
+                            entropy = 0
+                            for count in byte_freq.values():
+                                prob = count / len(sample)
+                                entropy -= prob * math.log2(prob)
+                            
+                            # Max entropy for bytes is 8 bits
+                            analytics_scores['complexity_score'] = round((entropy / 8) * 10, 2)  # 0-10 scale
+                        except Exception as e:
+                            logger.warning(f"Could not calculate entropy: {str(e)}")
+                    
+                    # Store scores in results
+                    if 'analytics_scores' not in benchmark.results:
+                        benchmark.results['analytics_scores'] = {}
+                    benchmark.results['analytics_scores'][filename] = analytics_scores
+                    
+                    # 5. Create a radar chart of scores
+                    plt.figure(figsize=(8, 8))
+                    # Categories for radar chart
+                    categories = ['Size', 'Complexity'] + list(analytics_scores['timing_scores'].keys())
+                    # Values for radar chart (size score, complexity score, and timing scores)
+                    values = [analytics_scores['size_score'], analytics_scores['complexity_score']] + \
+                            [score for score in analytics_scores['timing_scores'].values()]
+                    
+                    # Create the radar chart
+                    angles = np.linspace(0, 2*np.pi, len(categories), endpoint=False).tolist()
+                    values += values[:1]  # Close the loop
+                    angles += angles[:1]  # Close the loop
+                    categories += categories[:1]  # Close the loop
+                    
+                    ax = plt.subplot(111, polar=True)
+                    ax.plot(angles, values, 'o-', linewidth=2)
+                    ax.fill(angles, values, alpha=0.25)
+                    ax.set_thetagrids(np.degrees(angles[:-1]), categories[:-1])
+                    ax.set_ylim(0, 10)
+                    plt.title(f'Analysis Scores for {filename}')
+                    plt.tight_layout()
+                    plt.savefig(os.path.join(vis_dir, f'{os.path.splitext(filename)[0]}_scores.png'))
+                    plt.close()
+                
+                # Create an additional report with the visualizations
+                with open(os.path.join(args.output, 'visual_analysis_report.md'), 'w') as f:
+                    f.write(f"# Visual Analysis Report\n\n")
+                    f.write(f"Generated on: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+                    
+                    for filename in benchmark.results['file_analysis'].keys():
+                        f.write(f"## {filename}\n\n")
+                        
+                        # Add images to the report
+                        base_name = os.path.splitext(filename)[0]
+                        
+                        f.write(f"### Performance Comparison\n\n")
+                        f.write(f"![Performance Chart](visualizations/{base_name}_performance.png)\n\n")
+                        
+                        f.write(f"### Byte Distribution\n\n")
+                        f.write(f"![Byte Distribution](visualizations/{base_name}_distribution.png)\n\n")
+                        
+                        f.write(f"### Hash Bit Patterns\n\n")
+                        for algo in benchmark.results['file_analysis'][filename]['hashes'].keys():
+                            f.write(f"#### {algo}\n\n")
+                            f.write(f"![Bit Pattern](visualizations/{base_name}_{algo}_bits.png)\n\n")
+                        
+                        f.write(f"### Analysis Scores\n\n")
+                        f.write(f"![Score Analysis](visualizations/{base_name}_scores.png)\n\n")
+                        
+                        # Add score table
+                        if 'analytics_scores' in benchmark.results and filename in benchmark.results['analytics_scores']:
+                            scores = benchmark.results['analytics_scores'][filename]
+                            f.write("| Metric | Score (0-10) |\n")
+                            f.write("|--------|-------------|\n")
+                            f.write(f"| File Size | {scores['size_score']:.2f} |\n")
+                            f.write(f"| Complexity | {scores['complexity_score']:.2f} |\n")
+                            for algo, score in scores['timing_scores'].items():
+                                f.write(f"| {algo} Speed | {score:.2f} |\n")
+                            f.write("\n")
+                    
+                    logger.info(f"Visual analysis report saved to {os.path.join(args.output, 'visual_analysis_report.md')}")
+
+        except ImportError:
+            logger.warning("Matplotlib not available. Visualizations will not be generated.")
+        except Exception as e:
+            logger.error(f"Error generating visualizations: {str(e)}")
     
     elif args.command == 'compare':
         # Special command for direct comparison of algorithms
@@ -1411,6 +1657,12 @@ def main():
         if args.format != 'markdown':
             save_summary(benchmark.results, args.output, format=args.format)
         
+        # After analysis is complete:
+        print(f"Results directory contents:")
+        for root, dirs, files in os.walk(args.output):
+            for file in files:
+                print(f" - {os.path.join(root, file)}")
+    
     else:
         parser.print_help()
         return 1

@@ -1,0 +1,6 @@
+Hash Benchmark Summary
+=====================
+
+
+File Analysis Summary:
+- binary.dat: 10240 bytes

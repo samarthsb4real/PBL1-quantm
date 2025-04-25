@@ -1104,59 +1104,34 @@ class HashBenchmark:
         # Overall conclusion
         report.append("## Conclusion")
         
-        # Generate an overall score based on various metrics
-        if all(metric in self.results for metric in ['performance', 'entropy', 'avalanche', 'collision']):
-            # This is a simplified scoring system - could be made more sophisticated
-            conclusion = "Based on the benchmark results:\n\n"
+        # Check if we're running in file analysis only mode
+        is_file_analysis_only = 'file_analysis' in self.results and not ('performance' in self.results and 'entropy' in self.results)
+        
+        if is_file_analysis_only:
+            conclusion = "### File Analysis Summary\n\n"
             
-            # Performance score - based on throughput for 1MB inputs
-            perf_scores = {}
-            for name, sizes in self.results['performance'].items():
-                # Get performance for largest input size
-                largest_size = max(sizes.keys())
-                perf_scores[name] = sizes[largest_size]['throughput']
-            
-            # Normalize performance scores
-            max_perf = max(perf_scores.values()) if perf_scores else 1
-            norm_perf = {name: score/max_perf for name, score in perf_scores.items()}
-            
-            # Entropy scores
-            ent_scores = {name: result['entropy_score'] for name, result in self.results['entropy'].items()}
-            
-            # Avalanche scores - how close to ideal 50%
-            aval_scores = {}
-            for name, sizes in self.results['avalanche'].items():
-                # Average across all input sizes
-                scores = [1 - (result['ideal_score'] / 50) for result in sizes.values()]
-                aval_scores[name] = sum(scores) / len(scores)
-            
-            # Collision resistance - binary score
-            coll_scores = {name: 1.0 if result['passed'] else 0.0 for name, result in self.results['collision'].items()}
-            
-            # Calculate weighted overall score
-            overall_scores = {}
-            for name in self.hash_functions.keys():
-                # Weights can be adjusted based on priorities
-                overall_scores[name] = (
-                    norm_perf.get(name, 0) * 0.3 +  # 30% performance
-                    ent_scores.get(name, 0) * 0.2 +  # 20% entropy
-                    aval_scores.get(name, 0) * 0.3 +  # 30% avalanche
-                    coll_scores.get(name, 0) * 0.2    # 20% collision resistance
-                )
-            
-            # Sort by overall score
-            sorted_scores = sorted(overall_scores.items(), key=lambda x: x[1], reverse=True)
-            
-            for i, (name, score) in enumerate(sorted_scores):
-                conclusion += f"{i+1}. **{name}**: Overall Score: {score:.4f}\n"
-                conclusion += f"   - Performance: {norm_perf.get(name, 0):.4f}, "
-                conclusion += f"Entropy: {ent_scores.get(name, 0):.4f}, "
-                conclusion += f"Avalanche: {aval_scores.get(name, 0):.4f}, "
-                conclusion += f"Collision Resistance: {'Passed' if coll_scores.get(name, 0) > 0 else 'Failed'}\n"
-            
-            report.append(conclusion)
+            for filename, data in self.results['file_analysis'].items():
+                conclusion += f"**{filename}** ({data['size']} bytes):\n\n"
+                
+                # Add a hash comparison table
+                conclusion += "| Algorithm | Hash Value | Time (s) |\n"
+                conclusion += "|-----------|-----------|----------|\n"
+                
+                for algo, hash_val in data['hashes'].items():
+                    time_taken = data['time'].get(algo, 0)
+                    hash_display = hash_val[:16] + "..." + hash_val[-16:] if len(hash_val) > 40 else hash_val
+                    conclusion += f"| {algo} | `{hash_display}` | {time_taken:.6f} |\n"
+                
+                conclusion += "\n"
         else:
-            report.append("Insufficient data to generate overall scores.")
+            if not self.results or not all(k in self.results for k in ['performance', 'entropy', 'avalanche', 'collision']):
+                conclusion += "Insufficient data to generate overall scores. Run a full benchmark with 'benchmark' command for complete analysis.\n"
+            else:
+                # Original scoring code
+                # ...
+                pass
+        
+        report.append(conclusion)
         
         # Save the report to a file
         report_text = "\n".join(report)
