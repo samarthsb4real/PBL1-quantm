@@ -1,4 +1,4 @@
-# QUANTM: Quantum-Safe Hash Benchmark Framework
+# QZKI: Quantum-Safe Hash Benchmark Framework
 
 ## Overview
 QUANTM (QUantum ANalysis and Testing of Message hashing) is a comprehensive benchmarking framework for cryptographic hash functions with an emphasis on quantum resistance. It provides detailed analysis of performance, security properties, and resistance to various attack vectors including quantum threats.
