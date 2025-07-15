@@ -1,7 +1,7 @@
 # QZKI: Quantum-Safe Hash Benchmark Framework
 
 ## Overview
-QZKI (QUantum ANalysis and Testing of Message hashing) is a comprehensive benchmarking framework for cryptographic hash functions with an emphasis on quantum resistance. It provides detailed analysis of performance, security properties, and resistance to various attack vectors including quantum threats.
+QZKI is a comprehensive benchmarking framework for cryptographic hash functions with an emphasis on quantum resistance. It provides detailed analysis of performance, security properties, and resistance to various attack vectors including quantum threats.
 
 ![Hash Benchmark](https://img.shields.io/badge/Hash-Benchmark-brightgreen)
 ![Quantum Resistant](https://img.shields.io/badge/Quantum-Resistant-blue)
