@@ -36,8 +36,12 @@ QZKI is a comprehensive benchmarking framework for cryptographic hash functions 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/quantm.git
-cd quantm
+git clone https://github.com/samarthsb4real/Quantum-Resistant-ZKI.git
+cd CLI
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Run the CLI
+python cli.py
+```
